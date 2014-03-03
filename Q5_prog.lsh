@@ -1,0 +1,38 @@
+5. One obvious way to construct a parallel prefix circuit is to use lots of fans; for example, here is a naive parallel prefix circuit of size 8:
+
+| | | | | | | |\|
+| | | | | | |\|\|
+| | | | | |\|\|\|
+...
+
+Define a function to compute circuits of this form of arbitrary size. 
+
+scan :: Size → Circuit
+
+(This is the worst possible parallel prefix circuit, in the sense that it has maximal depth and the maximal number of nodes.)
+
+
+> type Size = Int -- natural numbers
+
+> data Circuit
+>     = Id Size
+>     | Fan Size
+>     | Beside Circuit Circuit
+>     | Stretch [Size] Circuit
+>     | Above Circuit Circuit
+>     deriving(Show)
+
+> scan :: Size -> Circuit
+> scan x 
+>    | x == 0 = Nil
+>    | otherwise ...
+
+take a size of x
+Id x - 1 Fan 2
+Above
+Id x - 2 Stretch [x - 2, 2] Fan 3
+Above
+Id x - 3 Stretch [x - 3, 3, 2] Fan 4
+Above
+Id x - 4 Stretch [x - 4, 4, 3, 2] Fan 5
+...
