@@ -23,3 +23,5 @@ Beside (Id 1) (Beside (Id 1) (Beside (Id 1) (Id 1)))
 However we are not handeling the empty list very well here...
 
 Also how do we work with Id values greater then 1, say Id 4, what are the implications of this?
+
+Consider a tuple of (Id, w) and decremeting w 
