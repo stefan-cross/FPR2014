@@ -23,12 +23,17 @@ scan :: Size → Circuit
 >     deriving(Show)
 
 > scan :: Size -> Circuit
-> scan s = scan' s
+> scan 0 = error "Scan must be positive integer"  
+> scan 1 = Id 1
+> scan 2 = Fan 2
+> scan s = scan' s 1 s
 >     where
->     desc s = s - 1 
->     scan' a = if a > 0 
->         then Stretch [a] (Fan a) `Above`  scan'(desc a) 
->         else Stretch [a] (Fan a)
+>     asc a = a + 1
+>     desc b = b - 1 
+>     list' s a b = b:[(x `mod` x)+1 | x <- [1..a]]
+>     scan' s a b = if b > 2 
+>         then Stretch (list' s a (desc b)) (Fan (asc a)) `Above`  scan' s (asc a) (desc b) 
+>         else Stretch [(x `mod` x)+1 | x <- [1..s]] (Fan s)
 
 
 
