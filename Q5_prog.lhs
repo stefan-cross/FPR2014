@@ -25,8 +25,11 @@ scan :: Size → Circuit
 > scan :: Size -> Circuit
 > scan s = scan' s
 >     where
->     desc s = s - 1
->     scan' a = if a > 0 then Id a `Beside`  scan'(desc a) else Id a
+>     desc s = s - 1 
+>     scan' a = if a > 0 
+>         then Stretch [a] (Fan a) `Above`  scan'(desc a) 
+>         else Stretch [a] (Fan a)
+
 
 
 
