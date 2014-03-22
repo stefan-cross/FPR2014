@@ -46,7 +46,15 @@ Stretch[1, 1, 1, 1] fan 4
 
 We are in business:
 
+*Main> scan 0
+*** Exception: Scan must be positive integer
+*Main> scan 1
+Id 1
+*Main> scan 2
+Fan 2
+*Main> scan 3
+Above (Stretch [2,1] (Fan 2)) (Stretch [1,1,1] (Fan 3))
 *Main> scan 4
 Above (Stretch [3,1] (Fan 2)) (Above (Stretch [2,1,1] (Fan 3)) (Stretch [1,1,1,1] (Fan 4)))
-*Main> scan 5
-Above (Stretch [4,1] (Fan 2)) (Above (Stretch [3,1,1] (Fan 3)) (Above (Stretch [2,1,1,1] (Fan 4)) (Stretch [1,1,1,1,1] (Fan 5))))
+*Main> scan 8
+Above (Stretch [7,1] (Fan 2)) (Above (Stretch [6,1,1] (Fan 3)) (Above (Stretch [5,1,1,1] (Fan 4)) (Above (Stretch [4,1,1,1,1] (Fan 5)) (Above (Stretch [3,1,1,1,1,1] (Fan 6)) (Above (Stretch [2,1,1,1,1,1,1] (Fan 7)) (Stretch [1,1,1,1,1,1,1,1] (Fan 8)))))))
