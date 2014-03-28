@@ -20,11 +20,11 @@ instance Semigroup Segment where ...
 > -- import Data.Semigroup
 
 > class Semigroup s where
->     exor :: s -> s -> s -- associative
+>     (⊗) :: s -> s -> s -- associative
 > 
 
 > instance Semigroup Int where
->     exor = (+)
+>     (⊗) = (+)
 
 > data Segment = 
 >    Segment (Circuit, Circuit)
@@ -50,7 +50,8 @@ On second thoughts, the example above is somewhat vague, stick to handling Ints 
 >    SegmentInt { i :: Int
 >               , j :: Int
 >               }
->               deriving(Show, Eq)
+>               deriving(Show)
+
 
 *Q8_Prog> let s = SegmentInt 12 23
 *Q8_Prog> :t s
@@ -60,3 +61,33 @@ SegmentInt {i = 12, j = 23}
 
 
 Now to make it an instance of semigroup...
+
+> instance Semigroup SegmentInt where
+>     SegmentInt i j ⊗ SegmentInt k l = if (i <= j) && (k == j + 1) then SegmentInt i l else error "Segments must validate (i <= j) && (k == j + 1)"
+
+
+Finally!
+
+*Q8_Prog> let x = SegmentInt 10 11
+*Q8_Prog> let y = SegmentInt 12 13
+*Q8_Prog>  x ⊗ y
+SegmentInt {i = 10, j = 13
+
+
+Validation is scrappy! Admittedly this seems to work and good prgress, but theres a got to be a different way
+
+*Q8_Prog> let x = SegmentInt 10 11
+*Q8_Prog> let y = SegmentInt 13 
+
+*Q8_Prog> x
+SegmentInt {i = 10, j = 11}
+*Q8_Prog> y
+SegmentInt {i = 12, j = 14}
+
+*Q8_Prog>  x ⊗ y
+*** Exception: Segments must validate (i <= j) && (k == j + 1)
+
+Now to just work on the data type constraints
+http://www.haskell.org/haskellwiki/Data_declaration_with_constraint
+http://www.haskell.org/ghc/docs/latest/html/users_guide/data-type-extensions.html#gadt-style
+
