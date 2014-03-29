@@ -7,6 +7,8 @@ serial :: Size -> Circuit
 (This one still has maximal depth, but at least it now has the minimal number
 of nodes possible.)
 
+> module Q5_prog where
+
 > type Size = Int -- natural numbers
 
 > data Circuit

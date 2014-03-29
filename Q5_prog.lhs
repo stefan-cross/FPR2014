@@ -11,6 +11,7 @@ scan :: Size → Circuit
 
 (This is the worst possible parallel prefix circuit, in the sense that it has maximal depth and the maximal number of nodes.)
 
+> module Q5_prog where
 
 > type Size = Int -- natural numbers
 

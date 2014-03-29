@@ -1,5 +1,6 @@
 4. How would you place a list of circuits side by side? For example, Id w should be the same as w copies of Id 1 placed side by side. Try to use standard Haskell library functions rather than building entirely from scratch. What is the unit of the binary operator Beside?
 
+> module Q4_prog where
 
 > type Size = Int -- natural numbers
 

@@ -1,0 +1,65 @@
+Regarding Question 8, there are a number of points that require calification:
+
+|8. We say that the type s forms a semigroup if it supports an associative binary operator 
+
+Firstly, lets clarify what an associative binary operator is:
+
+In mathematics an binary operation on a set is a calculation involving 2 elementsof the set (operands) and producing another element of the set. Formally, an operation whose arity is two and whose two domains and one codomain are subsets of the same set. Eg elementary arithmetic operations, addition, subtraction, multplication and division and more the more advanced topics of vector addition, matrix multiplication and conjunction in groups.
+
+More precisely, a binary operation on a set S is a map which sends elements of the Cartesian product S x S to s;
+
+f: S x S -> S
+
+When we speak of association we are refering to the associative property in propositional logic which is a rule of replacement for expressions in logical proofs. The order in which operations are preformed does not matter so long as the sequence of the operands is not changed. Rearranging the parentheses the expression will not change its value.
+
+ie.
+
+(5+2)+1 = 5+(2+1) =8
+5*(5*3) = (5*5)*3 = 75
+
+The question then states:
+
+|class Semigroup s where
+|(⊕)::s ➝ s ➝ s --associative
+
+|This is like the more familiar type class Monoid, except without the unit element. For example, integers form a semigroup using addition:
+
+|instance Semigroup Int where
+|   (⊕) = (+)
+
+So a few things to clarify here, firstly the ⊕ (circled addition) symbol. Mathmatical notion xor, exculsive or; The statement A ⊕ B is true when either A or B, but not both, are true. A ⊻ B means the same.
+
+Functional composition produces monoids. A collection/set of thingss, with a rule for combining, and the rule as two meta rules, accosiativity, existance of a unit or zero.
+
+Functions under composition create monoids.
+
+Monads differ from monoids in that they return transforms the type, or modifies the type.
+
+>>= bind, or shove
+
+Data lives in monoids, 
+
+Monads allows composition of functions with varying types. They are computational builders.
+
+A moniod is an algebraic structure with a single associative binary operation and an identity element, sutidied in semigroup theory as they are semi groups with identity. They capture the idea of function composition within a set. In CS a monoid is used for its foundation and practical aspects. The set of strings built from a given set of charactors is a free monoid. There are also transition, syntatic, trace and history moniods. Now to define a semigroup: 
+
+A semigroup is an algebraic structure consisting of s set together with an associative binary operation. A semigroup generalise a monoid in that a semigroupneed not have a identity element, it also generalises a group (a moniod with all inverses) in that no element had to have an inverse, thus the name semigroup.
+
+Now thats cleared up, the syntax "instance ... where... (⊕) = (+)" 
+
+ | Here is another semigroup, of ‘kissing segments’. Represent a segment of the natural number line by a pair of integers <i,j> with i <= j. Say that one such segment <i, j> ‘kisses’ another <k,l> precisely when k = j + 1; then they combine to yield the segment <i,l>. Show that this kissing combination operation is associative, when it is defined. Define a datatype of segments, and make it an instance of Semigroup.
+
+
+|data Segment = ...
+|instance Semigroup Segment where ...
+
+
+Useful Links:
+http://en.wikipedia.org/wiki/Binary_operation
+http://en.wikipedia.org/wiki/Monoid
+http://hackage.haskell.org/package/semigroups
+http://en.wikipedia.org/wiki/List_of_mathematical_symbols
+http://www.haskell.org/ghc/docs/7.0.4/html/users_guide/type-class-extensions.html
+
+http://stackoverflow.com/questions/2299951/how-to-properly-instantiate-classes-in-haskell
+http://hackage.haskell.org/package/semigroups-0.8.3/docs/Data-Semigroup.html#t:Semigroup

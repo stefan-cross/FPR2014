@@ -26,63 +26,49 @@ instance Semigroup Segment where ...
 > instance Semigroup Int where
 >     (⊗) = (+)
 
-> data Segment = 
->    Segment (Circuit, Circuit)
+> data Segment = Segment (Int, Int) deriving(Show)
 
 > data Segment' = 
->    Segment' { x :: Circuit
->             , y :: Circuit
+>    Segment' { i :: Int
+>             , j :: Int
 >             }
-
-Seems to be along the right lines...
-
-*Q8_Prog> let y = Segment((Id 1),(Id 1))
-*Q8_Prog> :t y
-y :: Segment
-
-*Q8_Prog> let y = Segment'{x = (Id 1), y = (Id 1)}
-*Q8_Prog> :t y
-y :: Segment'
-
-On second thoughts, the example above is somewhat vague, stick to handling Ints for now and not circuits...
-
-> data SegmentInt = 
->    SegmentInt { i :: Int
->               , j :: Int
->               }
->               deriving(Show)
+>             deriving(Show)
 
 
-*Q8_Prog> let s = SegmentInt 12 23
+*Q8_Prog> let s = Segment' 12 23
 *Q8_Prog> :t s
-s :: SegmentInt
+s :: Segment'
 *Q8_Prog> s
-SegmentInt {i = 12, j = 23}
+Segment' {i = 12, j = 23}
 
 
 Now to make it an instance of semigroup...
 
-> instance Semigroup SegmentInt where
->     SegmentInt i j ⊗ SegmentInt k l = if (i <= j) && (k == j + 1) then SegmentInt i l else error "Segments must validate (i <= j) && (k == j + 1)"
+> instance Semigroup Segment where
+>     Segment(i, j) ⊗ Segment(k, l) = if (i <= j) && (k == j + 1) then Segment(i, l) else error "Segments must validate (i <= j) && (k == j + 1)"
+
+
+> instance Semigroup Segment' where
+>     Segment' i j ⊗ Segment' k l = if (i <= j) && (k == j + 1) then Segment' i l else error "Segments must validate (i <= j) && (k == j + 1)"
 
 
 Finally!
 
-*Q8_Prog> let x = SegmentInt 10 11
-*Q8_Prog> let y = SegmentInt 12 13
+*Q8_Prog> let x = Segment' 10 11
+*Q8_Prog> let y = Segment' 12 13
 *Q8_Prog>  x ⊗ y
-SegmentInt {i = 10, j = 13
+Segment' {i = 10, j = 13
 
 
 Validation is scrappy! Admittedly this seems to work and good prgress, but theres a got to be a different way
 
-*Q8_Prog> let x = SegmentInt 10 11
-*Q8_Prog> let y = SegmentInt 13 
+*Q8_Prog> let x = Segment' 10 11
+*Q8_Prog> let y = Segment' 13 
 
 *Q8_Prog> x
-SegmentInt {i = 10, j = 11}
+Segment' {i = 10, j = 11}
 *Q8_Prog> y
-SegmentInt {i = 12, j = 14}
+Segment' {i = 12, j = 14}
 
 *Q8_Prog>  x ⊗ y
 *** Exception: Segments must validate (i <= j) && (k == j + 1)

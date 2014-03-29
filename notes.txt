@@ -1,0 +1,40 @@
+Heres an insight:
+
+*Main> let x = Fan 2 `Beside` Fan 2
+*Main> :i x
+x :: Circuit 	-- Defined at <interactive>:348:5
+*Main> :t x
+x :: Circuit
+*Main> x `Above` x
+Above (Beside (Fan 2) (Fan 2)) (Beside (Fan 2) (Fan 2))
+
+
+
+
+On another note:
+Starting to think that we should have to pass in circuit representaion as a list in order to step through arguements passed in...
+Then we could utilise standard list functions to loop through circuit representations
+eg instead of;
+
+(Fan 2 ‘Beside‘ Fan 2) ‘Above‘ 
+Stretch [ 2, 2 ] (Fan 2) ‘Above‘ 
+(Id 1 ‘Beside‘ Fan 2 ‘Beside‘ Id 1)
+
+[[Fan 2], [Beside], [Fan 2]] `Above` 
+[Stretch [ 2, 2 ]], [Fan 2]] `Above` 
+[[Id 1], [`Beside`], [Fan 2] `Beside` [Id 1]]
+
+The issue then is with the treat ment of Between and Above types as there definitions loose meaning;
+
+*Main> let q = [(Id 1) `Beside` (Fan 2)]
+*Main> :t q
+q :: [Circuit]
+*Main> head q
+Beside (Id 1) (Fan 2)
+*Main> let r = head q
+*Main> :t q
+q :: [Circuit]
+*Main> q
+[Beside (Id 1) (Fan 2)]
+
+And difficult to get the representations back to intended meaning, I think we need to take a tree approach on how trees were nested and how we counted nodes/size of a tree...
