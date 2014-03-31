@@ -12,12 +12,12 @@ A somewhat surprising result is that a single testcase serves to prove that a pu
 
 > apply :: Semigroup a => Circuit -> [a] -> [a]
 > apply cir xs 
->     | (width cir) -1 == (length xs) = sum' xs
->     | otherwise = error "Circuit and segment list lenght mismatch"
+>     | (width cir) == (length xs) = apply' xs
+>     | otherwise = error "Circuit and segment list length mismatch"
 >     where
->         sum' (x:xs) = return' (snd x + (sum' xs))
->             where
->                 return' a = [a]
+>         apply' (x:xs) = x ⊗ (apply' xs)
+
 
 *Q10_prog> let cir = (Above (Beside (Fan 2) (Id 1)) (Beside (Id 1) (Fan 2)))
-*Q10_prog> apply cir [(Segment (1, 2)), (Segment (2, 3))]
+*Q10_prog> apply cir [(Segment (1, 1)), (Segment (2, 2)), (Segment (3, 3))]
+[(Segment (1, 3)]

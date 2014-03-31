@@ -6,6 +6,8 @@ For example,
 
 lzw (+) [1,2,3,4] [5,6,7] = [6,8,10,4]
 
+> module Q12_prog where
+
 > lzw :: (a -> a -> a) -> [a] -> [a] -> [a]  
 > lzw _ [] a = a
 > lzw _ a [] = a

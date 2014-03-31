@@ -60,7 +60,7 @@ Finally!
 Segment' {i = 10, j = 13
 
 
-Validation is scrappy! Admittedly this seems to work and good prgress, but theres a got to be a different way
+Validation is scrappy! Admittedly this seems to work and good prgress, but theres a got to be a different way, at least use elseif statement to break up && and throw correct error!
 
 *Q8_Prog> let x = Segment' 10 11
 *Q8_Prog> let y = Segment' 13 

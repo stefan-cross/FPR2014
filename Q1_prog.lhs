@@ -12,6 +12,7 @@ Add up the number of ids
 >     | Beside Circuit Circuit
 >     | Stretch [Size] Circuit
 >     | Above Circuit Circuit
+>     deriving(Show)
 
 > width, depth :: Circuit -> Size
 > width cir = case cir of
