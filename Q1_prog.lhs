@@ -12,14 +12,14 @@ Add up the number of ids
 >     | Beside Circuit Circuit
 >     | Stretch [Size] Circuit
 >     | Above Circuit Circuit
->     deriving(Show)
+>     deriving(Show, Eq, Ord)
 
 > width, depth :: Circuit -> Size
 > width cir = case cir of
 >    (Id i) -> count i
 >    (Fan i) -> count i
 >    (Beside i j) -> (count (width i)) + (count (width j))
->    (Stretch xs cir) -> (sum xs) -- + (width cir) ?
+>    (Stretch xs cir) -> (sum xs)
 >    (Above i _) -> count (width i)
 >    where
 >        count i = i 

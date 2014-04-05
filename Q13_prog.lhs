@@ -18,29 +18,34 @@ How long does your function take? If it isn’t linear in the size of the term d
 
 > import Q1_prog
 > import Q12_prog
+> import Control.Monad.Writer
 
 > type Layout = [Layer]
 > type Layer = [Connection] 
-> type Connection = (Size, Size)
-
-Cover basic scenario first, 
-
-
+> type Connection = Maybe (Size, Size)
 
 
 > layout :: Circuit -> Layout
 > layout cir = case cir of
->     (Above a b) -> [(layout a)] : [(layout b)]
->     (_) -> (layer cir)
->     where 
+>     (Above a b) -> (layout a) ++ (layout b)
+>     (_) -> (layer cir) : []
+>     where
+>         w = width cir
+>         inc i = i + 1
+>         dec j = j - 1
 >         layer l = case l of
->             (Beside a b) -> [(count a), (count b)]
->         count a = case a of
->             (Fan f) -> (f, f)
+>             (Beside a b) -> (layer a) ++ (layer b)
+>             (_) -> (calc l 0) : [] 
+>         calc a i = case a of
+>             (Stretch (xs) f) -> Just ((head xs) -1 , sum(tail(xs)) + 1)
+>             (Fan f) -> if i <= w then Just (i , inc i) else Just (f, f)
+>             (Id i) -> Nothing
 
 
+Sort of :-s
 
-
+*Q13_prog> layout ((Fan 2 `Beside` Fan 2) `Above` Stretch [ 2, 2 ] (Fan 2) `Above` (Id 1 `Beside` Fan 2 `Beside` Id 1))
+[[Just (0,1),Just (0,1)],[Just (1,3)],[Nothing,Just (0,1),Nothing]]
 
 
 Starting simple
@@ -103,6 +108,6 @@ where return
 
 
 
-
+Incrementor style brings the concept of referential transparncy into disrupute, a foundation pilar of FPR. 
 
 

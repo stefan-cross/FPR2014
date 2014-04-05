@@ -45,11 +45,11 @@ Segment' {i = 12, j = 23}
 Now to make it an instance of semigroup...
 
 > instance Semigroup Segment where
->     Segment(i, j) ⊗ Segment(k, l) = if (i <= j) && (k == j + 1) then Segment(i, l) else error "Segments must validate (i <= j) && (k == j + 1)"
+>     Segment(i, j) ⊗ Segment(k, l) = if (i <= j) && (k == j + 1) then Segment(i, l) else error "Invalid segments"
 
 
 > instance Semigroup Segment' where
->     Segment' i j ⊗ Segment' k l = if (i <= j) && (k == j + 1) then Segment' i l else error "Segments must validate (i <= j) && (k == j + 1)"
+>     Segment' i j ⊗ Segment' k l = if (i <= j) && (k == j + 1) then Segment' i l else error "Invalid segments"
 
 
 Finally!
@@ -70,7 +70,7 @@ Segment' {i = 10, j = 11}
 *Q8_Prog> y
 Segment' {i = 12, j = 14}
 
-*Q8_Prog>  x ⊗ y
+*Q8_Prog>  x ⊕ y
 *** Exception: Segments must validate (i <= j) && (k == j + 1)
 
 Now to just work on the data type constraints

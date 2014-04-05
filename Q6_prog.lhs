@@ -20,7 +20,7 @@ of nodes possible.)
 >     deriving(Show)
 
 > serial :: Size -> Circuit
-> serial 0 = error "Serial param must be an int greter than 0"
+> serial 0 = error "Serial param must be an int greater than 0"
 > serial 1 = Id 1
 > serial 2 = Fan 2
 > serial s = fst s (serial' s 0 s)

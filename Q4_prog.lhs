@@ -12,17 +12,18 @@
 >     | Above Circuit Circuit
 >     deriving(Show)
 
-> beside :: [Circuit] -> Circuit
-> beside [] = Id 1
-> beside (x:xs) = x `Beside` (beside xs)
+> beside' :: [Circuit] -> Circuit
+> beside' [] = Id 0
+> beside' (x:xs) = x `Beside` (beside' xs)
 
-Seems to be along the right lines...
+> beside :: Circuit -> Circuit
+> beside (Id i)
+>    | i > 0 = Id i `Beside` beside (Id (i - 1))
+>    | otherwise = Id 0
 
-*Main> beside [(Id 1),(Id 1), (Id 1)]
-Beside (Id 1) (Beside (Id 1) (Beside (Id 1) (Id 1)))
 
-However we are not handeling the empty list very well here...
+*Main> beside' [(Id 1),(Id 1), (Id 1)]
+Beside (Id 1) (Beside (Id 1) (Beside (Id 1) (Id 0)))
 
-Also how do we work with Id values greater then 1, say Id 4, what are the implications of this?
-
-Consider a tuple of (Id, w) and decremeting w 
+*Q4_prog> beside (Id 4)
+Beside (Id 4) (Beside (Id 3) (Beside (Id 2) (Beside (Id 1) (Id 0))))
