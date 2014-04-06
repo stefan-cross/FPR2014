@@ -1,18 +1,18 @@
-<svg width="320" height="320" viewBox="-10,-10,320,320"
-     xmlns="http://www.w3.org/2000/svg" version="1.1">
-<line x1="0" y1="0" x2="0" y2="300" stroke="black" stroke-width="2"/>
-<line x1="100" y1="0" x2="100" y2="300" stroke="black" stroke-width="2"/>
-<line x1="200" y1="0" x2="200" y2="300" stroke="black" stroke-width="2"/>
-<line x1="300" y1="0" x2="300" y2="300" stroke="black" stroke-width="2"/>
-<line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="2"/>
-<line x1="200" y1="0" x2="300" y2="100" stroke="black" stroke-width="2"/>
-<line x1="100" y1="100" x2="300" y2="200" stroke="black" stroke-width="2"/>
-<line x1="100" y1="200" x2="200" y2="300" stroke="black" stroke-width="2"/>
-<circle cx="0" cy="0" r="7" fill="black" stroke-width="0"/>
-<circle cx="100" cy="100" r="7" fill="black" stroke-width="0"/>
-<circle cx="100" cy="200" r="7" fill="black" stroke-width="0"/>
-<circle cx="200" cy="0" r="7" fill="black" stroke-width="0"/>
-<circle cx="200" cy="300" r="7" fill="black" stroke-width="0"/>
-<circle cx="300" cy="100" r="7" fill="black" stroke-width="0"/>
-<circle cx="300" cy="200" r="7" fill="black" stroke-width="0"/>
-</svg>
+ <svg width="320" height="320" viewBox="-10,-10,320,320"
+          xmlns="http://www.w3.org/2000/svg" version="1.1">
+     <line x1="0" y1="0" x2="0" y2="300" stroke="black" stroke-width="2"/>
+     <line x1="100" y1="0" x2="100" y2="300" stroke="black" stroke-width="2"/>
+     <line x1="200" y1="0" x2="200" y2="300" stroke="black" stroke-width="2"/>
+     <line x1="300" y1="0" x2="300" y2="300" stroke="black" stroke-width="2"/>
+     <line x1="0" y1="0" x2="100" y2="100" stroke="black" stroke-width="2"/>
+     <line x1="200" y1="0" x2="300" y2="100" stroke="black" stroke-width="2"/>
+     <line x1="100" y1="100" x2="300" y2="200" stroke="black" stroke-width="2"/>
+     <line x1="100" y1="200" x2="200" y2="300" stroke="black" stroke-width="2"/>
+     <circle cx="0" cy="0" r="7" fill="black" stroke-width="0"/>
+     <circle cx="100" cy="100" r="7" fill="black" stroke-width="0"/>
+     <circle cx="100" cy="200" r="7" fill="black" stroke-width="0"/>
+     <circle cx="200" cy="0" r="7" fill="black" stroke-width="0"/>
+     <circle cx="200" cy="300" r="7" fill="black" stroke-width="0"/>
+     <circle cx="300" cy="100" r="7" fill="black" stroke-width="0"/>
+     <circle cx="300" cy="200" r="7" fill="black" stroke-width="0"/>
+     </svg>

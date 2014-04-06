@@ -1,0 +1,40 @@
+
+import Q1_prog
+import Q12_prog
+import Data.List
+
+type Layout = [Layer]
+type Layer = [Connection] 
+type Connection = (Size, Size)
+
+
+zipCir :: Circuit -> [[Circuit]]
+zipCir cir = case cir of
+    (Above a b) -> (zipCir a) ++ (zipCir b)
+    (_) -> (layer cir) : []
+    where
+        layer l = case l of
+            (Beside a b) -> (layer a) ++ (layer b)
+            (x) -> x : []
+
+zipList :: [Int] -> [[Circuit]] -> [[(Int, Circuit)]]
+zipList = \xs yss -> zipList' xs yss
+    where
+    	zipList' xs [] = []
+    	zipList' xs (ys:yss) = zip xs ys : zipList xs yss
+
+layout :: Circuit -> Layout
+layout cir = pack(zipList [0..] (zipCir cir)) 
+    where
+    	pack(xs:xss) = if length xs > 1
+    		then (package xs:[]): (pack ((tail xs):xss))
+    	    else (package xs:[]): pack xss
+    	pack(_) = []
+    	package (x:xs) = case x of
+    		(i, (Fan f)) -> (i, (i + f - 1))
+    		(i, (Stretch ys f)) -> ((head ys) -1, (sum ys)-1)
+    		(i, a) -> package xs
+
+
+
+--        clean (xs:xss) = filter([] . True) xs
