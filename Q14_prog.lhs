@@ -1,6 +1,6 @@
 14. If you want to produce a picture of a circuit, the layout function above provides the necessary information. (Actually, it’s helpful to have the width too; in principle, if it’s a parallel prefix circuit then you can determine the width from the connections, but that doesn’t work for identity circuits.) For example, you might transform a Layout into SVG format. Here is an SVG file for the Brent–Kung circuit of size 4:
 
-     <svg width="320" height="320" viewBox="-10,-10,320,320" xmlns="http://www.w3.org/2000/svg" version="1.1">
+     <svg width="320" height="320" viewBox="-10,-10,320,320" xmlns="http://www.w3.org/2000/svg" version="1.1'>
      <line x1="0" y1="0" x2="0" y2="300" stroke="black" stroke-width="2"/>
      <line x1="100" y1="0" x2="100" y2="300" stroke="black" stroke-width="2"/>
      <line x1="200" y1="0" x2="200" y2="300" stroke="black" stroke-width="2"/>
@@ -38,9 +38,9 @@ If you don’t have a dedicated SVG viewer to hand, the Google Chrome browser sh
 > import Q13_prog
 
 
-> svg :: (Layout , Size) -> [String]
-> svg (x:xs) s = 
-
+> header = " <svg width='320' height='320' viewBox='-10,-10,320,320' xmlns='http://www.w3.org/2000/svg' version='1.1'> "
+> content = " <circle cx='0' cy='0' r='7' fill='black' stroke-width='0'/> "
+> footer = " </svg> "
 
 
 
