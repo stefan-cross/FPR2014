@@ -1,19 +1,18 @@
-<svg width='320' height='320' viewBox='-10,-10,320,320' xmlns='http://www.w3.org/2000/svg' version='1.1'> 
-<line x1='400' y1='0' x2='400' y2='400'  stroke='black' stroke-width='2' /> 
-<line x1='300' y1='0' x2='300' y2='400'  stroke='black' stroke-width='2' /> 
-<line x1='200' y1='0' x2='200' y2='400'  stroke='black' stroke-width='2' /> 
-<line x1='100' y1='0' x2='100' y2='400'  stroke='black' stroke-width='2' /> 
-<line x1='000' y1='0' x2='000' y2='400'  stroke='black' stroke-width='2' /> 
+<svg width='220' height='220' viewBox='-10,-10,220,220' xmlns='http://www.w3.org/2000/svg' version='1.1'> 
+<line x1='300' y1='0' x2='300' y2='300'  stroke='black' stroke-width='2' /> 
+<line x1='200' y1='0' x2='200' y2='300'  stroke='black' stroke-width='2' /> 
+<line x1='100' y1='0' x2='100' y2='300'  stroke='black' stroke-width='2' /> 
+<line x1='000' y1='0' x2='000' y2='300'  stroke='black' stroke-width='2' /> 
 <circle cx='000' cy='000' r='7' fill='black' stroke-width='0'/>
 <circle cx='100' cy='100' r='7' fill='black' stroke-width='0'/>
-<circle cx='200' cy='000' r='7' fill='black' stroke-width='0'/>
-<circle cx='300' cy='100' r='7' fill='black' stroke-width='0'/>
+<circle cx='000' cy='000' r='7' fill='black' stroke-width='0'/>
+<circle cx='000' cy='100' r='7' fill='black' stroke-width='0'/>
+<circle cx='000' cy='100' r='7' fill='black' stroke-width='0'/>
+<circle cx='000' cy='200' r='7' fill='black' stroke-width='0'/>
 <circle cx='100' cy='100' r='7' fill='black' stroke-width='0'/>
-<circle cx='300' cy='200' r='7' fill='black' stroke-width='0'/>
-<circle cx='100' cy='200' r='7' fill='black' stroke-width='0'/>
-<circle cx='200' cy='300' r='7' fill='black' stroke-width='0'/>
+<circle cx='200' cy='200' r='7' fill='black' stroke-width='0'/>
 <line x1='000' y1='000' x2='100' y2='100'  stroke='black' stroke-width='2' /> 
-<line x1='200' y1='000' x2='300' y2='100'  stroke='black' stroke-width='2' /> 
-<line x1='100' y1='100' x2='300' y2='200'  stroke='black' stroke-width='2' /> 
-<line x1='100' y1='200' x2='200' y2='300'  stroke='black' stroke-width='2' /> 
+<line x1='000' y1='000' x2='000' y2='100'  stroke='black' stroke-width='2' /> 
+<line x1='000' y1='100' x2='000' y2='200'  stroke='black' stroke-width='2' /> 
+<line x1='100' y1='100' x2='200' y2='200'  stroke='black' stroke-width='2' /> 
 </svg> 

@@ -1,7 +1,9 @@
+
+import Q1_prog
+import Q12_prog
+import Data.List
 import System.IO
 import Data.Char
-
-type Size = Int -- natural numbers
 
 type Layout = [Layer]
 type Layer = [Connection] 
@@ -9,18 +11,37 @@ type Connection = (Size, Size)
 
 type String' = Char
 
-data Circuit
-    = Id Size
-    | Fan Size
-    | Beside Circuit Circuit
-    | Stretch [Size] Circuit
-    | Above Circuit Circuit
-    deriving(Show)
+zipCir :: Circuit -> [[Circuit]]
+zipCir cir = case cir of
+    (Above a b) -> (zipCir a) ++ (zipCir b)
+    (_) -> (layer cir) : []
+    where
+        layer l = case l of
+            (Beside a b) -> (layer a) ++ (layer b)
+            (x) -> x : []
+
+zipList :: [Int] -> [[Circuit]] -> [[(Int, Circuit)]]
+zipList = \xs yss -> zipList' xs yss
+    where
+    	zipList' xs [] = []
+    	zipList' xs (ys:yss) = zip xs ys : zipList xs yss
+
+layout :: Circuit -> Layout
+layout cir = pack(zipList [0..] (zipCir cir)) 
+    where
+        pack(xs:xss) = [package x | x <- xs, filter' x] : (pack xss)
+    	pack(_) = []
+    	filter' (_,Id _) = False
+        filter' _ = True
+    	package x = case x of
+    		(i, (Fan f)) -> (i, (i + f - 1))
+    		(i, (Stretch ys f)) -> ((head ys) -1, (sum ys)-1)
+
 
 -- SVG constructors
 header = "<svg width='$20' height='$20' viewBox='-10,-10,$20,$20' xmlns='http://www.w3.org/2000/svg' version='1.1'> \n"
 line = "<line x1='$00' y1='0' x2='$00' y2='£00' " ++ style ++ "/> \n"
-fan = "<line x1='α00' y1='β00' x2='ɣ00' y2='ƍ00' " ++ style ++ "/> \n" -- hack with Greek symbols
+fan = "<line x1='α00' y1='β00' x2='ɣ00' y2='ƍ00' " ++ style ++ "/> \n" -- Pattern match on Greek symbols
 point = "<circle cx='$00' cy='£00' r='7' fill='black' stroke-width='0'/>\n"
 style = " stroke='black' stroke-width='2' "
 footer = "</svg> "
@@ -45,7 +66,7 @@ point' xs i = (replace '$' (intToDigit(fst(head xs))) (replace '£' (intToDigit 
 point'' xs i = (replace '$' (intToDigit(snd(head xs))) (replace '£' (intToDigit (i + 1)) point))
 
 createFan (xs:xss) i = if length xs > 1
-	then fan' xs i : createFan ((drop 1 xs):xss) i
+	then fan' xs i : createFan ((tail xs):xss) i
 		else fan' xs i : createFan xss (i + 1)
 createFan [] _ = []
 -- Takes list and int and subs out greek letters for values, these are nested, working through tuple vals and layer i val
@@ -54,10 +75,14 @@ fan' xs i = (replace 'α' (intToDigit(fst(head xs))) (replace 'β' (intToDigit i
 svg :: (Layout , Size) -> [String']
 svg (lx, s) = concat [createHeader (s - 1), concat(createLine s s), concat(createPoint lx 0), concat(createFan lx 0), footer]
         
-
--- output :: MyString -> Circuit -> IO()
--- output file c = writeFile file (unlines(svg(layout c, width c)))
+output :: FilePath -> Circuit -> IO()
+output file c = writeFile file (unlines([svg(layout c, width c)]))
 
 createFile (xs, s) = do
 	writeFile "example2.svg" (svg (xs, s))
 	putStr "Done \n"
+
+
+
+
+

@@ -29,20 +29,19 @@ zipList = \xs yss -> zipList' xs yss
 layout :: Circuit -> Layout
 layout cir = pack(zipList [0..] (zipCir cir)) 
     where
-    	pack(xs:xss) = if length xs > 1
-    		then (package xs:[]): (pack ((tail xs):xss))
-    	    else (package xs:[]): pack xss
+        pack(xs:xss) = [package x | x <- xs, filter' x] : (pack xss)
     	pack(_) = []
-    	package (x:xs) = case x of
+    	filter' (_,Id _) = False
+        filter' _ = True
+    	package x = case x of
     		(i, (Fan f)) -> (i, (i + f - 1))
     		(i, (Stretch ys f)) -> ((head ys) -1, (sum ys)-1)
-    		(i, a) -> package xs
 
 
 -- SVG constructors
 header = "<svg width='$20' height='$20' viewBox='-10,-10,$20,$20' xmlns='http://www.w3.org/2000/svg' version='1.1'> \n"
 line = "<line x1='$00' y1='0' x2='$00' y2='£00' " ++ style ++ "/> \n"
-fan = "<line x1='α00' y1='β00' x2='ɣ00' y2='ƍ00' " ++ style ++ "/> \n" -- hack with Greek symbols
+fan = "<line x1='α00' y1='β00' x2='ɣ00' y2='ƍ00' " ++ style ++ "/> \n" -- Pattern match on Greek symbols
 point = "<circle cx='$00' cy='£00' r='7' fill='black' stroke-width='0'/>\n"
 style = " stroke='black' stroke-width='2' "
 footer = "</svg> "
@@ -79,7 +78,9 @@ svg (lx, s) = concat [createHeader (s - 1), concat(createLine s s), concat(creat
 output :: FilePath -> Circuit -> IO()
 output file c = writeFile file (unlines([svg(layout c, width c)]))
 
-
+createFile (xs, s) = do
+	writeFile "example2.svg" (svg (xs, s))
+	putStr "Done \n"
 
 
 
