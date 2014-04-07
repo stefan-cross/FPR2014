@@ -7,17 +7,12 @@ serial :: Size -> Circuit
 (This one still has maximal depth, but at least it now has the minimal number
 of nodes possible.)
 
-> module Q5_prog where
-
-> type Size = Int -- natural numbers
-
-> data Circuit
->     = Id Size
->     | Fan Size
->     | Beside Circuit Circuit
->     | Stretch [Size] Circuit
->     | Above Circuit Circuit
->     deriving(Show)
+> module Q6_prog where
+> import Q1_prog
+> import Q2_prog
+> import Q3_prog
+> import Q4_prog
+> import Q5_prog
 
 > serial :: Size -> Circuit
 > serial 0 = error "Serial param must be an int greater than 0"

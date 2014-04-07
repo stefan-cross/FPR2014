@@ -8,7 +8,6 @@ How long does your function take, in terms of the size of the expression represe
 The term ‘well-sized’ seems a bit ambigious but its take to mean that the stretch list values match the corresponding Fan size and that the width of above and below circuits match.
 
 > module Q2_prog where
-
 > import Q1_prog
 
 > wellsized :: Circuit -> Bool

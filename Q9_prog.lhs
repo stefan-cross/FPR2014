@@ -2,19 +2,25 @@ Task 9 - The next function takes a list ws of nat numbers and a list xs of eleme
 group [ 3, 2, 3, 2 ] "functional" = [ "fun", "ct", "ion", "al" ]
 
 
-
-*Main> group [1,3,5] "This is a string"
-["T","his"," is a"]
-
-
-
 Can you identify two equations that completely define group?
 group :: [Size] -> [a] -> [[a]]
 
-We can have three equations that can completely define the function group which cover all the exhaustive patterns. We must cater for the possibility that neither an empty list is passed in for the Int list and also the String list. We are then able to handle workings of the function safe in the knowledge that we are dealing with lists which contain sufficient elements not to produce an error with our list operations. Using the Peno design pattern and catering for the base cases we can then assume that in the third equation we are indeed dealing with non-empty list and the operations take and drop will not produce errors.
 
-Actually, yes we can by reordering and using two wild cards:
+It is possible to define group with just two equations. The initial function design catered for empty lists with two differing equations, however this can be optimised to have the same function by rearranging the pattern matching. By assuming that we are indeed dealing with two properly defined lists with more than one element then we can process them as we desire by taking the head value of natural numbers list and then grouping and dropping this amount from the string list. This call is made recursively until either list is exhausted in which case we then match on the following wildcard pattern, returning an empty list and thus completing the function call.
+
 
 > group :: [Int] -> [a] -> [[a]]
 > group (x:xs) ys = (take x ys) : (group xs (drop x ys))
 > group _ _ = []
+
+*Main> group [ 3, 2, 3, 2 ] "functional" 
+["fun","ct","ion","al"]
+
+*Main> group [] "Testing"
+[]
+
+*Main> group [1, 2, 3] ""
+["","",""]
+
+*Main> group [ 3, 2, 3, 2, 12, 2, 1, 9, 12, 101, 2, 2] "In computer science, functional programming is a programming paradigm, a style of building the structure and elements of computer programs, that treats computation as the evaluation of mathematical functions and avoids state and mutable data." 
+["In ","co","mpu","te","r science, f","un","c","tional pr","ogramming is"," a programming paradigm, a style of building the structure and elements of computer programs, that tr","ea","ts"]

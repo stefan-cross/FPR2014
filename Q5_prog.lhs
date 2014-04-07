@@ -11,17 +11,14 @@ scan :: Size → Circuit
 
 (This is the worst possible parallel prefix circuit, in the sense that it has maximal depth and the maximal number of nodes.)
 
+
+
+
 > module Q5_prog where
-
-> type Size = Int -- natural numbers
-
-> data Circuit
->     = Id Size
->     | Fan Size
->     | Beside Circuit Circuit
->     | Stretch [Size] Circuit
->     | Above Circuit Circuit
->     deriving(Show)
+> import Q1_prog
+> import Q2_prog
+> import Q3_prog
+> import Q4_prog
 
 > scan :: Size -> Circuit
 > scan 0 = error "Scan must be positive integer"  

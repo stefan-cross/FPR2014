@@ -21,10 +21,12 @@ zipCir cir = case cir of
             (x) -> x : []
 
 zipList :: [Int] -> [[Circuit]] -> [[(Int, Circuit)]]
-zipList = \xs yss -> zipList' xs yss
-    where
-    	zipList' xs [] = []
-    	zipList' xs (ys:yss) = zip xs ys : zipList xs yss
+zipList (y:yx) (xs:xss) = [((y + (extract x) - 2),(x)) | x <- xs] : zipList yx xss 
+zipList _ [] = []
+extract x = case x of
+	(Id x) -> x
+	(Fan x) -> x
+	(Stretch xs x) -> length xs
 
 layout :: Circuit -> Layout
 layout cir = pack(zipList [0..] (zipCir cir)) 
@@ -81,8 +83,6 @@ output file c = writeFile file (unlines([svg(layout c, width c)]))
 createFile (xs, s) = do
 	writeFile "example2.svg" (svg (xs, s))
 	putStr "Done \n"
-
-
 
 
 

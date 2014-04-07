@@ -17,97 +17,42 @@ How long does your function take? If it isn’t linear in the size of the term d
 > module Q13_prog where
 
 > import Q1_prog
-> import Q12_prog
+> import Q2_prog
+> import Q3_prog
+> import Q4_prog
+> import Q5_prog
+> import Q6_prog
+> import Q8_prog
 > import Control.Monad.Writer
 
 > type Layout = [Layer]
 > type Layer = [Connection] 
-> type Connection = Maybe (Size, Size)
+> type Connection = (Size, Size)
 
-
-> layout :: Circuit -> Layout
-> layout cir = case cir of
->     (Above a b) -> (layout a) ++ (layout b)
+> zipCir :: Circuit -> [[Circuit]]
+> zipCir cir = case cir of
+>     (Above a b) -> (zipCir a) ++ (zipCir b)
 >     (_) -> (layer cir) : []
 >     where
->         w = width cir
->         inc i = i + 1
->         dec j = j - 1
 >         layer l = case l of
 >             (Beside a b) -> (layer a) ++ (layer b)
->             (_) -> (calc l 0) : [] 
->         calc a i = case a of
->             (Stretch (xs) f) -> Just ((head xs) -1 , sum(tail(xs)) + 1)
->             (Fan f) -> if i <= w then Just (i , inc i) else Just (f, f)
->             (Id i) -> Nothing
+>             (x) -> x : []
 
+> zipList :: [Int] -> [[Circuit]] -> [[(Int, Circuit)]]
+> zipList (y:yx) (xs:xss) = [((y + (extract x) - 2),(x)) | x <- xs] : zipList yx xss 
+> zipList _ [] = []
+> extract x = case x of
+>     (Id x) -> x
+>     (Fan x) -> x
+>     (Stretch xs x) -> length xs
 
-Sort of :-s
-
-*Q13_prog> layout ((Fan 2 `Beside` Fan 2) `Above` Stretch [ 2, 2 ] (Fan 2) `Above` (Id 1 `Beside` Fan 2 `Beside` Id 1))
-[[Just (0,1),Just (0,1)],[Just (1,3)],[Nothing,Just (0,1),Nothing]]
-
-
-Starting simple
-
- layout :: Circuit -> Layout
- layout cir = case cir of
-     (Beside a b) -> [(count a), (count b)] : []
-     (cir) -> layout cir
-     where 
-         count a = case a of
-             (Id i) -> (i, i)
-
-*Q13_prog> layout ((Id 1) `Beside` (Id 1))
-[[(1,1),(1,1)]]
-
-
-Works to some extent but falls apart apart from this case...
-
-
- layout :: Circuit -> Layout
- layout cir = case cir of
-     (Above a b) -> [(count a w)] : [(count b w)] : []
-     where
-         w = width cir 
-         count a w = case a of
-             (Fan f) -> ((f - w), f - w) + 1)
-
-*Q13_prog> layout ((Fan 2) `Above` (Fan 2))
-[[(0,1)],[(0,1)]]
-
-
-
-So the circuit
-
-((Fan 2 `Beside` Fan 2) `Above` Stretch [ 2, 2 ] (Fan 2) `Above` (Id 1 `Beside` Fan 2 `Beside` Id 1))
-
-translates to
-
-[[(0, 1), (2, 3)], [(1, 3)], [(1, 2)]]
-
-Thinking in terms of iterators, pass the circuit, seperating out each layer by 'Above' combinator
-
-((Fan 2 `Beside` Fan 2) `Above` Stretch [ 2, 2 ] (Fan 2) `Above` (Id 1 `Beside` Fan 2 `Beside` Id 1))
-
-Calculate the width of a layer
-
-(Fan 2 `Beside` Fan 2) = 4
-Stretch [ 2, 2 ] (Fan 2) = 4
-Id 1 `Beside` Fan 2 `Beside` Id 1 = 4
-
-Deal with a simple base case first:
-
-(Fan 2 `Beside` Fan 2) = 4
-
-Take each circuit ether side and increment up to width value, as we did in the Q5 and 6 function
-
-(Fan i w) -> dec w return i
-where return
-    return r = 
-
-
-
-Incrementor style brings the concept of referential transparncy into disrupute, a foundation pilar of FPR. 
-
-
+> layout :: Circuit -> Layout
+> layout cir = pack(zipList [0..] (zipCir cir)) 
+>     where
+>         pack(xs:xss) = [package x | x <- xs, filterId x] : (pack xss)
+>         pack(_) = []
+>         filterId (_,Id _) = False
+>         filterId _ = True
+>         package x = case x of
+>             (i, (Fan f)) -> (i, (i + f - 1))
+>             (i, (Stretch ys f)) -> ((head ys) -1, (sum ys)-1)

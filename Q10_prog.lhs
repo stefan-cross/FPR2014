@@ -6,16 +6,21 @@ A somewhat surprising result is that a single testcase serves to prove that a pu
 
 
 > module Q10_prog where
-
 > import Q1_prog
-> import Q8_Prog
+> import Q2_prog
+> import Q3_prog
+> import Q4_prog
+> import Q5_prog
+> import Q6_prog
+> import Q8_prog
 
 > apply :: Semigroup a => Circuit -> [a] -> [a]
 > apply cir xs 
 >     | (width cir) == (length xs) = apply' xs
 >     | otherwise = error "Circuit and segment list length mismatch"
 >     where
->         apply' (x:xs) = x ⊗ (apply' xs)
+>         apply' (x:xs) = x ⊕ (apply' xs)
+>         apply' [] = []
 
 
 *Q10_prog> let cir = (Above (Beside (Fan 2) (Id 1)) (Beside (Id 1) (Fan 2)))

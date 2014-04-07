@@ -1,7 +1,6 @@
 3. You should discover that there is some overlap in behaviour (and possibly duplication of code) between width and wellsized. Write a single total function that returns a Maybe value, combining the two: Just (width c) when circuit c is well-sized, and Nothing otherwise. How long does this function take?
 
 > module Q3_prog where
-
 > import Q1_prog
 > import Q2_prog
 
