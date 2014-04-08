@@ -62,8 +62,8 @@ ________________
 1. Defining Circuit Width and Depth
 The following functions width and depth compute the width and depth of a circuit, assuming that circuits are adequately defined in that if one circuit is above another they both have the same width.
 
-> import Data.Char
 
+> import Data.Char
 > type Size = Int -- natural numbers
 > data Circuit
 >     = Id Size
@@ -179,6 +179,7 @@ ________________
 4. A function to list circuits side by side
 The following functions consider placing a list of circuits side by side. The first function takes the identity primitive circuit (Id w) and places w copies of Id 1 side by side.  The following beside prime function; beside’ , takes a list of circuits and returns a series of Beside circuits. In order to display the Circuit representation we need to modify the algebraic data type to derive show, this means that we can then print out and display the representation to the command prompt:
 
+
 > beside' :: [Circuit] -> Circuit
 > beside' [] = Id 0
 > beside' (x:xs) = x `Beside` (beside' xs)
@@ -216,7 +217,7 @@ Given the relatively loose definition of the Stretch combinator in the introduct
 (Stretch [7,1] (Fan 2)) `Above` (Stretch [6,1,1] (Fan 3) `Above` (Stretch [5,1,1,1] (Fan 4)) `Above` (Stretch [4,1,1,1,1] (Fan 5)) `Above` (Stretch [3,1,1,1,1,1] (Fan 6)) `Above` (Stretch [2,1,1,1,1,1,1] (Fan 7)) `Above` (Stretch [1,1,1,1,1,1,1,1] (Fan 8))
 
 
-Where the Stretch combinator has a list where the first value is the identity of the input line from which it starts, followed by subsequent values of input lines it stretches to, the fan value is thus the sum of the number of points to which the stretch fans out. One could argue that the circuit could be represented in the other following ways that would depend on the comprehension of the Stretch combinator, so assuming the previous definition. Note the use of set list comprehensions in list’ and the else statement in scan’ for short concise syntax:
+Where the Stretch combinator has a list where the first value is the identity of the input line from which it starts, followed by subsequent values of input lines it stretches to, the fan value is thus the sum of the number of points to which the stretch fans out. One could argue that the circuit could be represented in the other following ways that would depend on the comprehension of the Stretch combinator, so we assume the previous definition. Note the use of set list comprehensions in list’ and the else statement in scan’ for short concise syntax:
 
 
 > scan :: Size -> Circuit
@@ -252,7 +253,7 @@ Above (Stretch [3,1] (Fan 2)) (Above (Stretch [2,1,1] (Fan 3)) (Stretch [1,1,1,1
 Above (Stretch [7,1] (Fan 2)) (Above (Stretch [6,1,1] (Fan 3)) (Above (Stretch [5,1,1,1] (Fan 4)) (Above (Stretch [4,1,1,1,1] (Fan 5)) (Above (Stretch [3,1,1,1,1,1] (Fan 6)) (Above (Stretch [2,1,1,1,1,1,1] (Fan 7)) (Stretch [1,1,1,1,1,1,1,1] (Fan 8)))))))
 
 
-Please note that the final example has the identical semantic meaning to the prefiously given definition as per the below diagram, however the syntactical differences lay in the use of the above combinators being shown as infix and prefix in the latter.
+Please note that the final example has the identical semantic meaning to the previously given definition as per the below diagram, however the syntactical differences lay in the use of the above combinators being shown as infix and prefix in the latter.
 
 
 
@@ -557,7 +558,7 @@ We can also use other operators such as multiply, max and all other list operato
 
 ________________
 13. Defining a layout function
-The following function generates an actual circuit layout in a hardware description language, from a term of type circuit. The essence of the translation is to determine the connections between wires. Note that each circuit can be thought of as a sequence of layers, and connections only go from one layer to the next (and only rightwards, too). So it suffices to generate a list of layers, where each layer is a collection of pairs (i, j) with i < j denoting a connection from wire i on this layer to wire j on the next. The ordering of the pairs on each layer is not significant. We count from 0. For example, the Brent–Kung circuit of size 4 given earlier has the following connections: [[(0, 1), (2, 3)], [(1, 3)], [(1, 2)]]That is, there are three layers; the first layer has connections from wire 0 to wire 1 and from wire 2 to wire 3; the second a single connection from wire 1 to wire 3; and the third a single connection from wire 1 to wire 2. The following computes such layouts:
+The following function generates an actual circuit layout in a hardware description language, from a term of type circuit. The essence of the translation is to determine the connections between wires. Note that each circuit can be thought of as a sequence of layers, and connections only go from one layer to the next. This function permits connections in both directions in order to accommodate the previous Scan output. It suffices to generate a list of layers, where each layer is a collection of pairs (i, j) with i < j denoting a connection from wire i on this layer to wire j on the next. The ordering of the pairs on each layer is not significant. We count from 0. For example, the Brent–Kung circuit of size 4 given earlier has the following connections: [[(0, 1), (2, 3)], [(1, 3)], [(1, 2)]]That is, there are three layers; the first layer has connections from wire 0 to wire 1 and from wire 2 to wire 3; the second a single connection from wire 1 to wire 3; and the third a single connection from wire 1 to wire 2. The following computes such layouts:
 
 
 > type Layout = [Layer]
@@ -641,6 +642,7 @@ Unfortunately the combinations of functions is terribly inefficient, this is due
 14. Defining an SVG and Output function
 The following functions permit the output of an SVG file of the circuit entered.
 
+
 > type String' = Char
 
 
@@ -713,7 +715,7 @@ Functional programming leads to increased modularisation and component oriented 
 A concerted effort has been made to apply a variety of functional concepts such as; algebraic definitions, set list comprehensions, higher order functions with currying, lambdas and functional composition.
 
 
-The steep learning curve of the functional paradigm and the syntax of Haskell can hinder the adoption of pure functional programming languages. However with familiarity comes increased insight into efficiency and optimisation. Indeed by the end of the paper it became obvious that there was still room for many improvements. Utilising list operations and recursion over iteration and accumulating parameters to preserve referential transparency would have been more favoured and every effort was made to continually refactor the solutions to adhere to functional standards.
+The steep learning curve of the functional paradigm and the syntax of Haskell can hinder the adoption of pure functional programming languages. However with familiarity comes increased insight into efficiency and optimisation. Indeed by the end of the paper it became obvious that there was still room for many improvements. Utilising list operations and recursion over iteration and accumulating parameters to preserve referential transparency would have been more favoured and more time to refactor the solutions to adhere to concise functional standards.
 
 
 The solutions are somewhat verbose for the functional paradigm and with more time further refinement could have lead to better optimisations, the code could benefit from refining the amount of parentheses and utilise function composition with dot syntax for more elegant code. More importantly with the final two sections, 13 and 14, it would have been beneficial to explore alternative data structure to lists, in hindsight tree structures may have vastly improved the function computation time.
